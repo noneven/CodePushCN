@@ -463,6 +463,9 @@ CodePush.sync({
 })
 ```
 
+效果图：
+![](/images/CodePush测试.png)
+
 ### Package对象
 
 #### LocalPackage
