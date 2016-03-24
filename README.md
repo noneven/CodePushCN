@@ -426,11 +426,12 @@ status有下面几种状态
 
 ```javascript
 CodePush.sync({ 
- title:"更新提示",
- updateDialog: true,
- optionalIgnoreButtonLabel: "忽略",
- optionalInstallButtonLabel: "安装",
- optionalUpdateMessage:"有一个提示可用，是否安装？",
+ updateDialog: {
+   title:"更新提示",
+   optionalIgnoreButtonLabel: "忽略",
+   optionalInstallButtonLabel: "安装",
+   optionalUpdateMessage:"有一个提示可用，是否安装？",
+ },
  installMode: CodePush.InstallMode.ON_NEXT_RESUME,
 }, (syncStatus) => {
  switch(syncStatus) {
