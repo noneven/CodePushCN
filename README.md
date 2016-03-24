@@ -1,9 +1,8 @@
-## RN代码升级的RN插件-CodePush
+## 提供RN代码升级的RN插件-CodePush
 
 >这个插件提供了一个客户端集成的Codepush服务，它让你很容易向你的RN应用增加一个动态的更新
 
 * [CodePush的使用步骤](/Useage.md)
-
 * [它是怎样运作的?](#它是怎样运作的?)
 * [支持的RN平台](#支持的RN平台)
 * [支持的组件](#支持的组件设置)
@@ -14,7 +13,6 @@
 		* [CocoaPods](#IOS插件安装iOS - CocoaPods)
 		* [手动操作](#IOS插件安装（IOS 手工）)
 	* [插件配置](#插件配置（IOS）)
-
 * 安卓安装
 	* 插件安装
 	* 插件配置（RN<0.18.0）
@@ -90,7 +88,9 @@ npm install --save react-native-code-push
 为了尽可能的去适应一些开发者的开发习惯，对于IOS，CodePush支持以下三种方式进行安装。
 
 1、RNPM - [React Native Package Manager (RNPM)](http://github.com/rnpm/rnpm)是一个提供了非常好的可以使用很简单的步骤去安装Rn插件的工具。如果你准备使用它，或者你想要使用它，我们都很推荐用这种方式去安装
+
 2、[CocoaPods](https://github.com/Microsoft/react-native-code-push/blob/master/README.md#plugin-installation-ios---cocoapods)-如果你是在你现有的Native APP中集成RN，或者你更喜欢使用CocoaPods，我们推荐你使用我们插件里面的Podspec文件。
+
 3、[Manual](https://github.com/Microsoft/react-native-code-push/blob/master/README.md#plugin-installation-ios---manual)如果你不想依赖其他额外的工具或者很在乎其他额外的安装步骤带来的开销（毕竟这些工作只会做一次），那么采用下面的这种手动添加的方式：
 
 #### <a name="IOS插件安装（RNPM）">IOS插件安装（RNPM）</a>
@@ -100,7 +100,9 @@ npm install --save react-native-code-push
 >Note：如果你还没有安装RNPM，你应该先简单的执行`[sudo] npm i -g rnpm` 然后再执行以上命令。
 
 2、打开你需要集成CodePush的APP的Xcode 项目，
+
 3、选择最顶层的项目节点，并且在你的工程配置界面中选择 "Build Phases" 这个tab
+
 4、点击下面的"Link Binary With Libraries"列，然后点击这列左下角的"+",选择和你当前目标版本相匹配的“libz.tbd”文件。
 
 ![xx](https://cloud.githubusercontent.com/assets/116461/11605042/6f786e64-9aaa-11e5-8ca7-14b852f808b1.png)
@@ -121,16 +123,25 @@ pod 'CodePush', :path => './node_modules/react-native-code-push`
 #### <a name="IOS插件安装（IOS 手工）">IOS插件安装（IOS 手工）</a>
 
 1、打开你的Xcode项目
+
 2、找到`node_modules/react-native-code-push/ios`目录下的`CodePush.xcodeproj`文件（如果CodePush版本<=1.7.3-beta就是`node_modules/react-native-code-push`目录下）。并且把它拖到你的项目的`Libraries`节点里。
+
 ![2](https://cloud.githubusercontent.com/assets/8598682/13368613/c5c21422-dca0-11e5-8594-c0ec5bde9d81.png)
+
 3、选择项目根目录，并且选中右边工程配置区的"Build Phases" tab
+
 4、把`libCodePush.a`拖到"Link Binary With Libraries" 区域里面去
+
 ![4](https://cloud.githubusercontent.com/assets/516559/10322221/a75ea066-6c31-11e5-9d88-ff6f6a4d6968.png)
+
 5、点击"Link Binary With Libraries"下面的“+”，并且选择`IOS 9.1`下面的`libz.tbd`文件。
+
 ![5](https://cloud.githubusercontent.com/assets/116461/11605042/6f786e64-9aaa-11e5-8ca7-14b852f808b1.png)
+
 >Note: Alternatively, if you prefer, you can add the -lz flag to the Other Linker Flags field in the Linking section of the Build Settings.
 
 6、点击你的工程配置区的`Build Settings`tab，找到“Header Search Paths”并且双击它编辑值，点击弹出区域的左下角“+”天机一个新值：`$(SRCROOT)/../node_modules/react-native-code-push`，并且选择右边的“recursive”。
+
 ![6](https://cloud.githubusercontent.com/assets/516559/10322038/b8157962-6c30-11e5-9264-494d65fd2626.png)
 
 ### <a name="插件配置（IOS）">插件配置（IOS）</a>
@@ -171,6 +182,7 @@ NSURL *jsCodeLocation;
 ```
 
 为了让CodePush在运行期间知道它应该去哪个部署查找更新。需要做以下几个步骤：
+
 1、打开你的APP的`Info.plist`文件，并且增加一个新Key`CodePushDeploymentKey`,它的值是你想要再次配置你的APP的`deployment Key`(e.g. the key for the Staging deployment for the FooBar app),你可以运行`code-push deployment ls <appName> -k `
 ![xx](https://cloud.githubusercontent.com/assets/116461/11601733/13011d5e-9a8a-11e5-9ce2-b100498ffb34.png)
 复制`Deployment Key`你想要去使用的部署环境那列。
@@ -192,6 +204,7 @@ NSURL *jsCodeLocation;
 a、多久多频繁去check更新，例如app启动时，还是在setting 页面点击更新，或定时去更新
 b、当一个更新出现，如何向用户展现
 最简单的方式是在你的APP根组件里面操作以下步骤：
+
 1、引入CodePush模块
 
 ```javascript
@@ -209,7 +222,9 @@ codePush.sync();
 #### <a name="发布仅仅有JavaScript变更的更新">发布仅仅有JavaScript变更的更新</a>
 
 你的APP已经配置好了并且已经发布给用户了，现在你需要对立面的js做一些变更，到了需要立即发布更新的时候。如果你没有使用RN去打包图片（通过`require('./foo.png')`），那么执行以下几个步骤，否则跳过这一块：
+
 1、执行`react-native bundle`(需要加一些参数，具体看下面的例子)去打包你需要为你的APP更新的JS Bundle文件。你能通过`--bundle-output`参数设置你需要输出的Bundle文件的位置，这个文件可以是任何路径甚至和CodePush的路径毫无关联。另一个比较重要的是去设置`--dev false`,他可以去压缩你的代码并且去掉一些黄色的警告提示。
+
 2、执行`code-push release <appName> <jsBundleFilePath> <targetBinaryVersion> --deploymentName <deploymentName>`命令去发布生成的JS Bundle文件到CodePush服务器。这个`<jsBundleFilePath>`参数应该和你`--bundle-output`参数输出的地址保持一致，另外，`<targetBinaryVersion>`参数应该等于你想要CodePush去更新的APP在APPStore里的版本[exact app store version](http://codepush.tools/docs/cli.html#app-store-version-parameter)。更多关于`release`命令和它的参数，请参考[CLI documentation.](http://codepush.tools/docs/cli.html#releasing-app-updates)。
 
 ##### <a name="使用例子">使用例子</a>
@@ -226,7 +241,9 @@ code-push release MyApp codepush.js 1.0.0
 >Note: 安装在RN V0.19.0支持了assets资源更新，并且需要你使用CodePush V1.7.0，如果你是用的是比较老的RN版本，你将不能通过CodePush更新你的assets资源，你需要做的是升级或者使用你以前的工作方式去更新JSBundle文件。
 
 如果你是用的是新的RN 资源系统（[assets system](https://facebook.github.io/react-native/docs/images.html#content)）,它不支持你通过网路或者具体的平台机制加载图片（例如 IOS的资源目录iOS asset catalogs），你将不能简单的向上面写到的那样简单的提交JS Bundle文件到CodePush服务器。你必须提供你的图片资源，要做到这些，可以简单的使用下面的工作方式。
+
 1、创建一个文件夹去组织你的APP需要发布的资源（比如JSBundle文件和图片资源）。我们建议使用`release`作为文件夹的名字，当然你也可以使用其他名字。如果你在你的工程中创建了这个文件夹，确认增加一个`.gitignore`文件，因为你不需要对这个文件夹做控制（比如在使用github做代码管理时）。
+
 2、当你调用`react-native bundle`的时候，你的文件和图片等静态资源就会生成到这个文件夹下。并且对各自平台和入口文件 你不用开发构建。假定你把文件夹命名为`release`,你应该运行下面的命令：
 
 ```javascript
@@ -251,8 +268,11 @@ CodePush支持增量升级（也叫差别升级），即使你每一次更新都
 ### <a name="API参考">API参考</a>
 
 CodePush插件有两部分构成，
+
 1、一个需要被引入的JavaScript模块，允许APP在运行过程中和服务器交互。（例如检查更新，检查当前运行APP更新数据）。
+
 2、一个让RN APP定位正确JSBundle位置的Native API（java/OC）。
+
 下面部分详细的描述了这些API具体情况。
 
 #### <a name="JavaScript API参考">JavaScript API参考</a>
